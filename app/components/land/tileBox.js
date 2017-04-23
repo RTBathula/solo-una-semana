@@ -11,42 +11,56 @@ class App extends Component {
 
   render() {
     return ( 
-    	<div className={style.tileContainer+" card-2"}>		    
+    	<div className={style.tileContainer}>		    
 
 		    {/*title*/}
 	    	<div className={style.titleContainer}>
-	    		<div className={style.titleWrap+" flex-row-start-start"}>
-	    			<div className={style.iconWrap+" vertical-center"}>
+	    		<a href="" style={{"textDecoration": "none"}}>
+	    		<div className={style.titleWrap+" flex-row-start-start"} style={{"height":this.props.tileStyle.titleHeight,"padding":this.props.tileStyle.titlePadding}}>
+	    			<div className={style.iconWrap+" vertical-center"} style={{"width":this.props.tileStyle.titleIconWidth}}>
 	    				<img src="assets/img/msexcel.png" />
 	    			</div>
 	    			<div className={style.title+" vertical-center"}>
-	    				<span>MS EXCEL</span>
+	    				<span style={{"fontSize": this.props.tileStyle.titleFontSize}} >MS EXCEL</span>	    				
 	    			</div>		    			
 	    		</div>
+	    		</a>
 	    	</div>
 
 	    	{/*desc wrap*/}
-	    	<div className={style.tileDescWrap}>
-		    	{/*image*/}
-		    	<div className={style.tileImgWrap} style={{...this.props.style}} >
-		    		<FilePreviewByType fallback={"/assets/img/defaultImg.jpg"} file={"assets/img/prof.png"}/>			    			    	  
-			    </div>
+	    	<div className={style.tileDescWrap} >
+	    		<a href="" style={{"textDecoration": "none"}}>
+	    		<div className={" card-2"}>
+			    	{/*image*/}
+			    	<div className={style.tileImgWrap}  style={{"height":this.props.tileStyle.imgHeight}}>
+			    		<FilePreviewByType fallback={"/assets/img/defaultImg.jpg"} file={"assets/img/prof.png"}/>			    			    	  
+				    </div>
 
-				{/*desc*/}
-		    	<div className={style.descBx+" "}>
-			    	<div className={style.subtitle+" "}>
-			    		<span style={{"fontSize": this.props.style.fontSize}} >What makes Earth so special?</span>	
-			    	</div>
-			    	<div className={style.metadetails+" flex-row-start-start"}>
-			    		<div className={style.details1+" vertical-center"}>
-			    			<span>-&nbsp;</span>
-			    			<span className={style.profname}>RT Bathula</span>
-			    		</div>
-			    		<div className={style.details2+" vertical-center"}>
-			    			<span>/ Software Developer,Filmmaker</span>
-			    		</div>	
-			    	</div>	    	  
+					{/*desc*/}
+			    	<div className={style.descBx+" "}>
+				    	<div className={style.subtitle+" "}>
+				    		<span style={{"fontSize": this.props.tileStyle.subTitleFontSize}} >What makes Earth so special?</span>	
+				    	</div>
+				    	<div className={style.metadetails+" flex-row-start-start"}>
+				    		<div className={style.details1+" vertical-center"}>
+				    			<span>-&nbsp;</span>
+				    			<span className={style.profname}>RT Bathula</span>
+				    		</div>
+				    		<div className={style.details2+" vertical-center"}>
+				    			<span>/ Software Developer,Filmmaker</span>
+				    		</div>	
+				    	</div>
+
+				    	<div className={style.metadetails+" flex-row-start-start"}>
+				    		<div className={style.details1+" vertical-center"}>				    			
+				    			<span style={{"fontSize": "16px","color":"green","fontWeight":"600"}} >
+				    				$50,000 CLP
+				    			</span>
+				    		</div>				    			
+				    	</div>	    	  
+				    </div>
 			    </div>
+			    </a>
 			</div> 			    	  
 		    
 	    </div>	
