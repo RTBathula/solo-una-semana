@@ -26,6 +26,6 @@ app.get('*', function(req, res) {
 //Ending
 app.set('port', process.env.PORT || 1446);
 var server = app.listen(app.get('port'), function() {	
-	console.log("Solo 3 dias frontend-web is up and running on port:"+app.get('port'));
+	console.log("Solo una semana frontend-web is up and running on port:"+app.get('port'));
   console.log("Man cannot survive except through his mind-Aynrand");
 });

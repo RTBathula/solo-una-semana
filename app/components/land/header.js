@@ -15,7 +15,7 @@ class App extends Component {
     render() {
 	    return ( 
 	    	<div className={layoutStyle.screenfull}>
-		      <div style={{"width":"100%","height":"60px","backgroundColor":"black"}}>	
+		      <div style={{"width":"100%","height":"60px","backgroundColor":"#A70E18"}}>	
 		      		       
 	          </div>
 		    </div>	

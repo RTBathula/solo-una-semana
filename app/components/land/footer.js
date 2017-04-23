@@ -11,7 +11,7 @@ class App extends Component {
     	<div className={layoutStyle.screenfull+' '+style.headstrip+' horizontal-center'}>
 	      <div className={layoutStyle.screen980}>	
 	        <footer>	
-	        	<div className={'vertical-center '} style={{"height":"50px"}}>
+	        	<div className={'vertical-center '} style={{"height":"50px","backgroundColor":"red"}}>
 	        		<span style={{"color":"gray"}}>&copy; 2017 Solo 3 dias. All Rights Reserved</span>
 	        	</div>       
 	        </footer>

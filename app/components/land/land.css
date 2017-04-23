@@ -1,13 +1,106 @@
+.screen980{
+  width:1020px;  
+}
 .bodystrip{  
-  	width: 100%;
-    height: 70vh;
-    max-width: 100%;
-  	background-image: url('/assets/img/bg.jpg');
-  	background-position: center center; 
-  	background-repeat: repeat;
-  	background-size: cover;
-  	background-attachment: fixed;
-  	background-color: #253340;  
-  	position: absolute;
-  	z-index: -1;		
+	width: 100%;
+  height: 70vh;
+  max-width: 100%;
+	background-image: url('/assets/img/bgbuk3.jpg');
+	background-position: center center; 
+	background-repeat: repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	background-color: #253340;  
+	position: absolute;
+	z-index: -1;	
+}
+
+.customRow{
+  width:100%;
+  height: auto;
+  border:1px solid red;
+}
+
+.tileContainer{
+  height: auto;  
+  position: relative;
+  margin: 40px 20px 20px 40px;    
+}
+
+.titleContainer{
+  width: 100%;   
+  height: auto;; 
+  position: absolute;
+  top: -7.5%;
+  left: -6%;   
+}
+.titleWrap{
+  width:94%;
+  height: 40px;
+  padding: 7px;
+  background-color: rgba(51, 51, 51, 0.95);
+}
+
+.iconWrap{
+  height: 100%;
+  width: 30px; 
+}
+.iconWrap img {
+  width: 100%;
+}
+.title{
+  height: 100%;  
+  margin-left: 4px;  
+}
+.title span{
+  font-size: 20px;
+  font-weight: 500;
+  color:white;
+}
+
+.tileDescWrap{
+  width:100%;
+  height: auto; 
+}
+
+.tileImgWrap{
+  width:100%;
+}
+.tileImg{
+  width:100%;
+}
+.descBx{
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+}
+.subtitle{
+  width: 100%;
+  height: auto; 
+}
+.subtitle span{
+  font-size: 20px;
+  font-weight: 500;
+  color:black;
+  word-wrap: break-word;
+}
+.metadetails{
+  width: 100%;
+  height: auto;
+  margin-top: 6px; 
+}
+.details1,.details2{
+  height: 20px;
+}
+.profname{
+  font-size: 12px;
+  font-weight: 600;
+  color:black;
+}
+.details2{
+  margin-left: 2px;
+}
+.details2 span{
+   color:gray;
 }
