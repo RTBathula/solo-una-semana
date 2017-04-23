@@ -1,0 +1,51 @@
+.container{
+	width: 100%;
+	height: 100%;	
+}
+.wrap{
+	width: 100%;
+	height: 100%;
+	border-radius: 0.5px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);	
+	position: relative;
+}
+.imgContainer{
+	width: 100%;
+	height: 100%;
+}
+.imgContainer .imgTag{
+	width: 100%;
+	height: 100%;	    
+}
+
+.imgToolsContainer{
+    display: none;
+}
+.wrap:hover .imgToolsContainer{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0;
+    left: 0;    
+        
+    padding: 3.5px 8px 3.5px 8px;
+}
+.remove{
+    cursor: pointer;
+}
+.remove i{
+    color:white;
+    font-size: 16px;
+}
+
+.imgUploadBarContainer{	
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(238, 238, 238, 0.68);
+    top: 0;
+    left: 0;            
+    padding: 3.5px 8px 3.5px 8px;
+}

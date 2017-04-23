@@ -1,0 +1,34 @@
+.fieldContainer{	
+	min-width:280px;
+	width:100%;
+	height: 100%;
+}
+
+.fieldWrap{
+	width:100%;
+	height: 100%;
+}
+
+.field{
+	flex:1;
+  -moz-flex:1;
+  -webkit-flex:1;
+  margin-left: 10px;
+  height:100%;
+}
+
+.field:first-child{
+	margin-left: 0px;
+}
+
+.ppInput{
+	border:none;
+	border:1px solid #B8D1D8;
+	padding:0px 4px 0px 4px;
+	width:100%;
+	height:100%;
+	color:black;
+}
+.ppInput:focus{
+	outline: none;
+}

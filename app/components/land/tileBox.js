@@ -4,11 +4,14 @@ import React, { PropTypes, Component } from 'react'
 import layoutStyle from 'components/layout.css'
 import style from './land.css'
 
+//Custom components
+import FilePreviewByType from 'components/helpers/filePreviewByType/filePreviewByType'
+
 class App extends Component { 
 
   render() {
     return ( 
-    	<div style={{...this.props.style}} className={style.tileContainer+" card-2"}>		    
+    	<div className={style.tileContainer+" card-2"}>		    
 
 		    {/*title*/}
 	    	<div className={style.titleContainer}>
@@ -25,14 +28,14 @@ class App extends Component {
 	    	{/*desc wrap*/}
 	    	<div className={style.tileDescWrap}>
 		    	{/*image*/}
-		    	<div className={style.tileImgWrap}>
-			    	<img src="assets/img/prof.png"	className={style.tileImg} />		    	  
+		    	<div className={style.tileImgWrap} style={{...this.props.style}} >
+		    		<FilePreviewByType fallback={"/assets/img/defaultImg.jpg"} file={"assets/img/prof.png"}/>			    			    	  
 			    </div>
 
 				{/*desc*/}
 		    	<div className={style.descBx+" "}>
 			    	<div className={style.subtitle+" "}>
-			    		<span>What makes Earth so special?</span>	
+			    		<span style={{"fontSize": this.props.style.fontSize}} >What makes Earth so special?</span>	
 			    	</div>
 			    	<div className={style.metadetails+" flex-row-start-start"}>
 			    		<div className={style.details1+" vertical-center"}>

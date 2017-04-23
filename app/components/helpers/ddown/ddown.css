@@ -1,0 +1,71 @@
+.ddownContainer{
+	position: relative;
+}
+
+.ddownWrap{
+	top:25px;
+	right:-0.5px;
+	position: absolute;
+	width:200px;	
+}
+
+.uparrow{
+	background-image: url(/assets/img/util.png);
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: -259px -196px;
+	height: 8px;
+	top: -6px;
+	width: 16px;
+	left: 100%;
+	margin-left: -20px;	
+	position: absolute;
+}
+
+.contentWrap{
+	width:100%;
+	height:auto;
+	background-color: white;
+	border: 1px solid rgba(0,0,0,0.15);
+}
+
+.infoContainer{
+	width:100%;
+	height:28px;	
+	padding:0px 10px 0px 10px;
+}
+
+.menuContainer{
+	width:100%;
+	height:25px;	
+	padding:0px 10px 0px 10px;
+}
+
+.menuContainer:hover{
+	background-color: #177EE5;
+	color:white;
+}
+
+.menuWrap{
+	width:100%;	
+	height:100%;
+}
+.menuIcon{
+	height:100%;
+	width:20px;		
+}
+.menuContent{	
+	height:100%;
+	margin-left: 5px;	
+}
+.menuContent span{
+	font-size: 13px;
+}
+.menuDivdr{
+	width:100%;
+	border-bottom: 1px solid #E9EBEE;
+}
+.userName{
+	font-weight: 700;
+	font-family: 'Open Sans', sans-serif;
+}
