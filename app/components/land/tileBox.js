@@ -15,7 +15,7 @@ class App extends Component {
 
 		    {/*title*/}
 	    	<div className={style.titleContainer}>
-	    		<a href="" style={{"textDecoration": "none"}}>
+	    		<a href="/topic" style={{"textDecoration": "none"}}>
 	    		<div className={style.titleWrap+" flex-row-start-start"} style={{"height":this.props.tileStyle.titleHeight,"padding":this.props.tileStyle.titlePadding}}>
 	    			<div className={style.iconWrap+" vertical-center"} style={{"width":this.props.tileStyle.titleIconWidth}}>
 	    				<img src="assets/img/msexcel.png" />
@@ -29,7 +29,7 @@ class App extends Component {
 
 	    	{/*desc wrap*/}
 	    	<div className={style.tileDescWrap} >
-	    		<a href="" style={{"textDecoration": "none"}}>
+	    		<a href="/topic" style={{"textDecoration": "none"}}>
 	    		<div className={" card-2"}>
 			    	{/*image*/}
 			    	<div className={style.tileImgWrap}  style={{"height":this.props.tileStyle.imgHeight}}>

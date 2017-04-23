@@ -7,7 +7,7 @@ import * as UserActions from 'actions/user'
 
 //Components
 import Header from 'components/header'
-import Body from 'components/land/body'
+import Body from 'components/topicDetails/body'
 import Footer from 'components/footer'
 
 
