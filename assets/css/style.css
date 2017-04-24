@@ -186,13 +186,10 @@
 .cf:after { clear: both; }
 .cf { zoom: 1; }
 
-@font-face {
-    font-family: segoeui;
-    src: url(/assets/fonts/segoeui.ttf);
-}
+
 body{
     font-size: 12px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;  
 }
 
 .card-1 {
