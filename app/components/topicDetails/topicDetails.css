@@ -13,3 +13,8 @@
 .bulletPoints:first-child{
 	margin-top: 0px;
 }
+
+.courseTemplate{
+	background-color: #efeded;
+	padding: 20px;
+}

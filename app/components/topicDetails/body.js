@@ -6,13 +6,14 @@ import style from './topicDetails.css'
 
 //Custom components
 import FilePreviewByType from 'components/helpers/filePreviewByType/filePreviewByType'
+import Course from './course'
 
 class App extends Component { 
 
   render() {    
 
     return ( 
-    	<div className={layoutStyle.screenfull} style={{"backgroundColor":"#e9ebee"}}>
+    	<div className={layoutStyle.screenfull} style={{"backgroundColor":"white"}}>
         <div className={style.presentbxContainer+' horizontal-center'}>  
           <div className={layoutStyle.screen980+" "+style.presentbxWrap} > 
 
@@ -45,11 +46,21 @@ class App extends Component {
                   {/*Cost*/}
                   <div style={{"width":"100%","marginTop":"20px"}} className={' flex-row-start-start'}>              
                      <div style={{"height":"auto"}} >
-                      <span style={{"fontSize": "16px","color":"green","fontWeight":"600"}} >
+                      <span style={{"fontSize": "20px","color":"green","fontWeight":"600"}} >
                         $50,000 CLP
                       </span>                       
                     </div>            
                   </div>
+
+                  {/*Buttons*/}
+                  <div style={{"width":"100%","marginTop":"20px"}} className={' flex-row-start-start'}>              
+                     <div style={{"height":"auto"}} >
+                      <button className={' default-inputfield'} style={{"backgroundColor": "green","fontSize": "16px","color":"white","height":"32px","width":"150px","borderRadius":"1px"}} >                    
+                        I will attend
+                      </button>                       
+                    </div>            
+                  </div>
+
                 </div>
 
               </div>
@@ -85,45 +96,9 @@ class App extends Component {
             </div>
 
             <div style={{"width":"100%","marginTop":"10px"}}>
-              <div style={{"width":"100%"}}>
-                <div style={{"width":"100%"}}>
-                  <span style={{"fontSize": "16px","color":"black"}} >
-                    Introduction to mS EXCEL
-                  </span> 
-                </div>
-                <div style={{"width":"100%","height":"1px","margin":"5px 0px 5px 0px","borderTop":"1px solid gray"}}>                  
-                </div>
-                <div style={{"width":"100%","padding":"6px 14px 0px 14px"}}>
-                  <div className={style.bulletPoints}>
-                    <span style={{"fontSize": "12px","color":"black"}} >
-                      <i className="icon ion-record" style={{"color":"rgba(8, 8, 8, 0.91)"}}></i>&nbsp;
-                    </span>
-                    <span style={{"fontSize": "12px","color":"black"}} >
-                      Igdfgdfgfd dfgf dfbfgb cfgfgb
-                    </span> 
-                  </div>
-
-                  <div className={style.bulletPoints}>
-                    <span style={{"fontSize": "12px","color":"black"}} >
-                      <i className="icon ion-record" style={{"color":"rgba(8, 8, 8, 0.91)"}}></i>&nbsp;
-                    </span>
-                    <span style={{"fontSize": "12px","color":"black"}} >
-                      Igdfgdfgfd dfgf dfbfgb cfgfgb
-                    </span> 
-                  </div>
-
-                  <div className={style.bulletPoints}>
-                    <span style={{"fontSize": "12px","color":"black"}} >
-                      <i className="icon ion-record" style={{"color":"rgba(8, 8, 8, 0.91)"}}></i>&nbsp;
-                    </span>
-                    <span style={{"fontSize": "12px","color":"black"}} >
-                      Igdfgdfgfd dfgf dfbfgb cfgfgb
-                    </span> 
-                  </div>               
-                </div>
-              </div>             
-
-
+              <Course />
+              <Course />
+              <Course />
             </div>            
 
             {/*Profesort details*/}
@@ -135,17 +110,17 @@ class App extends Component {
 
             <div style={{"width": "100%","marginTop":"6px"}} className={" flex-row-start-start"}>
               <div style={{"width":"15%"}} className={" vertical-center"}>   
-                <img src="assets/img/chica.jpg" style={{"width":"100%"}} />          
+                <img src="assets/img/chica.jpg" style={{"width":"100%","border":"1px solid #eee"}} />          
               </div>
 
               <div style={{"marginLeft":"3%","width":"82%"}}>  
                 <div style={{}}>
-                  <span style={{"fontSize": "18px","fontWeight": "400","color":"black"}} >
+                  <span style={{"fontSize": "18px","fontWeight": "400","color":"blue"}} >
                     RT Bathula
                   </span>               
                 </div>
                 <div style={{"marginTop":"3px"}}>
-                  <span style={{"fontSize": "14px","color":"black"}} >
+                  <span style={{"fontSize": "16px","color":"black","fontWeight": "400"}} >
                     Software Developer
                   </span>               
                 </div>

@@ -8,6 +8,8 @@ import store from 'store/store'
 //Custom
 import Land from './containers/land'
 import TopicDetails from './containers/topicDetails'
+import About from './containers/about'
+import HowItWorks from './containers/howitworks'
 
 const history = syncHistoryWithStore(browserHistory, store)
 
@@ -15,7 +17,9 @@ render(
 	<Provider store={store}>
 		<Router history = {history}>					
 			<Route path="/" component={Land}/>
-			<Route path="/topic" component={TopicDetails}/>		
+			<Route path="/topic" component={TopicDetails}/>
+			<Route path="/about-us" component={About}/>
+			<Route path="/how-it-works" component={HowItWorks}/>		
 		</Router>				
 	</Provider>,
 document.getElementById('react-mount')

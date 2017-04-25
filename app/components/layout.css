@@ -16,3 +16,12 @@
 .parentLightGrayBG{
 	background-color:#F7F7F7;
 }
+
+.headerBtn{
+	height: 30px;
+	background-color: white;
+	color:#a70e18;
+	border-radius: 1.5px;
+	font-size: 13px;
+	font-weight:500;
+}
