@@ -4,9 +4,8 @@ var app = express();
 module.exports = function() {
 	
     //routes
-	app.get('/deeplink', function(req, res) {
-		var id = req.query.id || ""
-	  	return res.send('todova drivers app'); 
+	app.post('/student', function(req, res) {
+		
 	}); 	
    
     return app;
