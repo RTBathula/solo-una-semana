@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   devtool: 'eval',
   entry: [     
-    './app/main.js'
+    './react-app/main.js'
   ],
   output: {
     path: __dirname,
@@ -71,7 +71,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.es6', '.jsx'],
     root: [
-      path.resolve('./app')
+      path.resolve('./react-app')
     ]
   },
   devServer: {

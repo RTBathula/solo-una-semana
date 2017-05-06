@@ -1,62 +1,33 @@
-global.keys  = require('../config/keys.js')();
-var _        = require('underscore');
+var crypto = require('crypto');
 
+module.exports = {
+	
+	encryptPassword: function(password){ 	
+		let salt       = crypto.randomBytes(16).toString('base64')
+		let saltBase64 = new Buffer(salt, 'base64')
+		return {
+			encryptedPass : crypto.pbkdf2Sync(password, saltBase64, 10000, 64).toString('base64'),
+			salt          : salt
+		}
+	},
 
-module.exports = function () {
-    
-  var obj = {
-    
-    isProduction: function() {
+	validatePassword: function(password, salt, encryptedPass){ 	
+		let saltBase64 = new Buffer(salt, 'base64')
+		return encryptedPass === crypto.pbkdf2Sync(password, saltBase64, 10000, 64).toString('base64')
+	},
 
-      if(process.env.PORT){
-        return true
-      }  
-      return false      
-    },
+	hasWhiteSpace: function(txt){
+	  return /^ *$/.test(txt)
+	},
 
-    getPort: function() {
+	isJsonParsable: function(json){ 
 
-      var _self = obj;
-
-      if(_self.isProduction()){
-        return process.env.PORT
-      }
-       
-      return 1446      
-    },
-
-    getConfigKeys: function() {
-      
-      var _self = obj;
-
-      if(_self.isProduction()){
-        return global.keys["production"]
-      }
-         
-      return global.keys["development"]      
-    },
-
-    _isJSON: function(json) {
-      
-      var _self = obj;
-
-      //String
-      if(json && typeof(json)==="string"){
-        try{
-          JSON.parse(json);
-          return true;
-        }catch(e){
-          return false;
-        }
-
-      }else{
-        return _.isObject(json);
-      }
-        
-      return false;     
-    }
-
-  };
-
-  return obj;
-};
+	  try{
+	    JSON.parse(json)  
+	  }catch(e){
+	    return false
+	  }      
+	  
+	  return true
+	}
+}

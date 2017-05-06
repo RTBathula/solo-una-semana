@@ -22,7 +22,7 @@ class App extends Component {
 		    		<div className={" flex-row-space-start"} style={{"width":"100%"}}>
 		    			<div className={" flex-row-start-start"} style={{"height":"40px"}}>
 		    				<Link href="/" style={{"height":"100%","height":"100%"}}>		    				
-		    					<img src="assets/img/logotitle.png" style={{"height":"100%"}} />
+		    					<img src="/assets/img/logotitle.png" style={{"height":"100%"}} />
 		    				</Link>
 		    			</div>
 		    			<div className={" vertical-center"} style={{"height":"40px"}}>
