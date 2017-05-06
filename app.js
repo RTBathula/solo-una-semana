@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(express.static(__dirname))
 
-//Middleware CORS 
+//Middleware body parser 
 app.use(function(req, res, next) {
   //if req body is a string, convert it to JSON.
   if(req.text && isJsonParsable(req.text)){
@@ -19,7 +19,11 @@ app.use(function(req, res, next) {
   if(req.body && typeof(req.body)==="string" && isJsonParsable(req.body)){
     eq.body = JSON.parse(req.body)
   }
+  next()
+})
 
+//Middleware CORS 
+app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', true)
   res.header('Access-Control-Allow-Origin', "*")
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DEvarE')
