@@ -12,10 +12,8 @@ module.exports = {
 
 		let deferred = q.defer()
 		
-		rl.question(question, (answer) => {		 
-		  console.log(`Reacorded your answer ${answer}`)
-		  deferred.resolve(answer)
-		  rl.close()
+		rl.question(question, (answer) => {				  
+		  deferred.resolve(answer)		  
 		})
 
 		return deferred.promise

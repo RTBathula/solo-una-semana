@@ -11,6 +11,8 @@ module.exports = {
   */
   bootupDB: function(){
 
+    var _self = this
+
     let deferred = q.defer()
 
     var adminEmail  = null
@@ -21,40 +23,61 @@ module.exports = {
       //Assign mongo connection to global
     	global.mongoCon = mongoCon 
 
-      let promisesList = []
-       
-      //Find default admin exist    
-      promisesList.push(mongo.getListBy(global.mongoCon,"admin",{},0,999))   
-        
-      return q.all(promisesList)
+      return _self.addDefaultAdmin()       
 
-    }).then(function(respList){   
-
-      let adminList = respList[0]//extract admin document response list     
-      if(adminList && adminList.length>0){
-        let subDeferred = q.defer()
-        subDeferred.resolve("Already default admin is added")
-        return subDeferred.promise
-      }
-       
-      return readline.readline("Please enter default admin email:")  
-    }).then(function(replyEmail){
-      adminEmail = replyEmail
-      return readline.readline("Please enter default admin password:") 
-    }).then(function(adminPassword){
-
-      //insert new admin  
-      let {encryptedPass,salt} = util.encryptPassword(adminPassword)
-      let adminObj = {email: adminEmail,encryptedPassword: encryptedPass, salt : salt}             
-      return mongo.insertOne(global.mongoCon,"admin",adminObj)
-
-    }).then(function(resp){
+    }).then(function(resp){    
       deferred.resolve("Success")
     },function(error){      
     	deferred.reject(error)
     })
 
     return deferred.promise
-  }
+  },
 
+  addDefaultAdmin: function(){
+
+    let deferred = q.defer()   
+
+    let promisesList = []
+
+    //Find default admin exist    
+    promisesList.push(mongo.getListBy(global.mongoCon,"admin",{},0,999))  
+
+    q.all(promisesList).then(function(respList){
+
+      let subDeferred = q.defer()
+
+      let adminList = respList[0]//extract admin document response list     
+      if(adminList && adminList.length>0){ 
+        subDeferred.resolve("Already default admin is added")                                               
+      }else{  
+
+        var adminEmail  = null
+
+        readline.readline("Please enter default admin email:").then(function(replyEmail){
+          adminEmail = replyEmail
+          return readline.readline("Please enter default admin password:") 
+        }).then(function(adminPassword){
+          //insert new admin  
+          let {encryptedPass,salt} = util.encryptPassword(adminPassword)
+          let adminObj = {email: adminEmail,encryptedPassword: encryptedPass, salt : salt}                     
+          return mongo.insertOne(global.mongoCon,"admin",adminObj)
+        }).then(function(resp){
+          subDeferred.resolve("Default admin is successfully added.")
+        },function(error){
+          deferred.reject(error)
+        })
+      }
+
+      return subDeferred.promise 
+
+    }).then(function(resp){
+      console.log(resp)      
+      deferred.resolve("Success")
+    },function(error){
+      deferred.reject(error)
+    })
+
+    return deferred.promise  
+  }
 }
