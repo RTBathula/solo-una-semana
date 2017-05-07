@@ -28,6 +28,13 @@ class App extends Component {
 		        			</Link>
 		        		</span>
 		        	</div>
+		        	<div className={'vertical-center '} style={{"height":"50px","marginLeft":"32px"}}>
+		        		<span>
+		        			<Link href="/location" style={{"fontSize":"12px","color":"white"}}>
+		        			Locations
+		        			</Link>
+		        		</span>
+		        	</div>
 	        	</div>	
 	        	       
 	        </footer>

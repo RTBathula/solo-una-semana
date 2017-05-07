@@ -43,6 +43,11 @@ class App extends Component {
 		    							<Link href="/how-it-works" style={{"fontSize":"12px","color":"white"}}>How it works</Link>
 		    						</div>
 		    					</div>
+		    					<div style={{"marginLeft":"15px","height":"30px"}} className={" vertical-center"} >
+		    						<div>
+		    							<Link href="/location" style={{"fontSize":"12px","color":"white"}}>Locations</Link>
+		    						</div>
+		    					</div>
 		    				</div>
 		    			</div>
 		    		</div>

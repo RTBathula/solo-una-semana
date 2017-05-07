@@ -24,7 +24,7 @@ class App extends Component {
             </div>
           </div>
 
-          <Modal.Header closeButton style={{"width":"100%","borderTopRightRadius":"4px","borderTopLeftRadius":"4px","backgroundColor":"black"}}>
+          <Modal.Header closeButton style={{"width":"100%","borderTopRightRadius":"4px","borderTopLeftRadius":"4px","backgroundColor":"black","border":"1px solid #212020"}}>
            
             <div style={{"width":"100%"}} className={"flex-row-space-start "}>
               <div className={" "}>
