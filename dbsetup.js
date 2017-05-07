@@ -2,6 +2,7 @@ var q = require('q')
 var mongo = require('./databases/mongo')
 var util = require('./helpers/util')
 var env = require('./helpers/environment')
+var readline = require('./helpers/readline')
 
 module.exports = {
 
@@ -12,6 +13,8 @@ module.exports = {
 
     let deferred = q.defer()
 
+    var adminEmail  = null
+
     //Connect mongodb
     mongo.connect(env.getConfigKeys().mongodbConnectUri,env.getConfigKeys().dbName).then(function(mongoCon){	
 
@@ -19,31 +22,35 @@ module.exports = {
     	global.mongoCon = mongoCon 
 
       let promisesList = []
-      //Creating test index for recipe collection for name field 
-      promisesList.push(mongo.createIndex(global.mongoCon,"recipe","name","text"))    
-      //Find and create default admin if didn't exist     
-      promisesList.push(mongo.findOneBy(global.mongoCon,"admin",{email: "admin@admin.com"}))   
+       
+      //Find default admin exist    
+      promisesList.push(mongo.getListBy(global.mongoCon,"admin",{},0,999))   
         
       return q.all(promisesList)
 
     }).then(function(respList){   
 
-      let adminDocument = respList[1] //extract admin document = require(response list     
-      if(adminDocument){
+      let adminList = respList[0]//extract admin document response list     
+      if(adminList && adminList.length>0){
         let subDeferred = q.defer()
         subDeferred.resolve("Already default admin is added")
         return subDeferred.promise
       }
-              
+       
+      return readline.readline("Please enter default admin email:")  
+    }).then(function(replyEmail){
+      adminEmail = replyEmail
+      return readline.readline("Please enter default admin password:") 
+    }).then(function(adminPassword){
+
       //insert new admin  
-      let {encryptedPass,salt} = util.encryptPassword("admin")
-      let adminObj = {email:"admin@admin.com",encryptedPassword: encryptedPass, salt : salt}             
-      return mongo.insertOne(global.mongoCon,"admin",adminObj)  
-     
+      let {encryptedPass,salt} = util.encryptPassword(adminPassword)
+      let adminObj = {email: adminEmail,encryptedPassword: encryptedPass, salt : salt}             
+      return mongo.insertOne(global.mongoCon,"admin",adminObj)
+
     }).then(function(resp){
       deferred.resolve("Success")
-    },function(error){
-      console.log(error)
+    },function(error){      
     	deferred.reject(error)
     })
 

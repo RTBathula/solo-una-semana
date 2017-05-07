@@ -6,4 +6,6 @@ var dbsetup = require('./dbsetup')
 */
 dbsetup.bootupDB().then(function(){
   app.listen() //run express server
+},function(error){ 
+	console.log(error)
 })
