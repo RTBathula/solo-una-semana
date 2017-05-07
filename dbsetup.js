@@ -54,7 +54,7 @@ module.exports = {
           return readline.readline("Please enter default admin password:") 
         }).then(function(adminPassword){
           //insert new admin  
-          let {encryptedPass,salt} = util.encryptPassword(adminPassword)
+          let {encryptedPass,salt} = util.getEncryptPasswordAndSalt(adminPassword)
           let adminObj = {email: adminEmail,encryptedPassword: encryptedPass, salt : salt}                     
           return mongo.insertOne("admin",adminObj)
         }).then(function(resp){

@@ -155,7 +155,7 @@ module.exports = {
                Resolve->success message on update
                Reject->Error on findOneAndUpdateBy()
     */
-    updateRecipe: function(recipeId,updateRecipeObj){  
+    updateCourse: function(recipeId,updateRecipeObj){  
         
         var deferred = q.defer()
         var response = {}
@@ -209,7 +209,7 @@ module.exports = {
                Resolve->recipe details
                Reject->Error on devareOneBy() or document not found
     */
-    devareRecipe: function(recipeId){      
+    deleteCourse: function(recipeId){      
        
         var deferred = q.defer()
         var response = {}
@@ -245,7 +245,7 @@ module.exports = {
                Resolve->success message on update
                Reject->Error on findOneAndUpdateBy()
     */
-    rateRecipe: function(recipeId,rate){  
+    rateCourse: function(recipeId,rate){  
         
         var deferred = q.defer()
         var response = {}
@@ -286,7 +286,7 @@ module.exports = {
                Resolve->search results
                Reject->Error on searchBy()
     */
-    searchRecipes: function(searchRecipeObj){  
+    searchCourse: function(searchRecipeObj){  
         
         var deferred = q.defer()
         var response = {}
@@ -315,8 +315,7 @@ module.exports = {
           deferred.reject(response)
         }
 
-        return deferred.promise
-   
+        return deferred.promise   
     }
 
 }

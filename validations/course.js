@@ -8,7 +8,7 @@ module.exports = {
         var response = {
         	status     : "error",
             statusCode : 400
-        }   
+        }
 
         //Validate
         if(!newRecipeObj || Object.prototype.toString.call(newRecipeObj)=="[object Null]"){
@@ -97,7 +97,7 @@ module.exports = {
         return next()
     },
 
-    updateRecipe: function( req, res, next){  
+    updateCourse: function( req, res, next){  
         var recipeId        = req.params.id || null
         var updateRecipeObj = req.body || null
 
@@ -179,7 +179,7 @@ module.exports = {
         return next()
     },
 
-   deleteRecipe: function( req, res, next){  
+   deleteCourse: function( req, res, next){  
         var recipeId = req.params.id || null
         var response = {
             status     : "error",
@@ -200,7 +200,7 @@ module.exports = {
         return next()
     },
 
-    rateRecipe: function( req, res, next){  
+    rateCourse: function( req, res, next){  
         var recipeId        = req.params.id || null
         var rateRecipeObj   = req.body || null
 
@@ -245,7 +245,7 @@ module.exports = {
         return next()
     },
 
-    searchRecipes: function( req, res, next){  
+    searchCourse: function( req, res, next){  
         var searchRecipeObj   = req.body || null
 
         var response = {

@@ -4,7 +4,7 @@ var bodyParser = require('body-parser')
 var env = require('./helpers/environment')
 var util = require('./helpers/util')
 
-var app = express()
+const app = express()
 var server
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -34,7 +34,7 @@ app.use(function(req, res, next) {
 })
 
 //Routes
-app.use('/', require('./routes/recipe')()) 
+app.use('/', require('./routes/course')()) 
 app.use('/', require('./routes/admin')())
 
 if (process.env.NODE_ENV !== 'production') {

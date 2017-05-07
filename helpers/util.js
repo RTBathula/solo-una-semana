@@ -2,7 +2,7 @@ var crypto = require('crypto');
 
 module.exports = {
 	
-	encryptPassword: function(password){ 	
+	getEncryptPasswordAndSalt: function(password){ 	
 		let salt       = crypto.randomBytes(16).toString('base64')
 		let saltBase64 = new Buffer(salt, 'base64')
 		return {

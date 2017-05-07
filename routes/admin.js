@@ -11,11 +11,11 @@ module.exports = function() {
    	/*
         Login admin
     */
-    app.post('/admin/login', validate.loginAdmin, function(req,res,next) {	
+    app.post('/admin/login', validate.loginAdmin, function(req,res) {	
 
     	let loginObj = req.body 
 
-        adminServices.LoginAdmin(loginObj.email,loginObj.password).then(function(result){
+        adminServices.loginAdmin(loginObj.email,loginObj.password).then(function(result){
         	return res.status(result.statusCode).json(result)
         },function(error){           
             return res.status(error.statusCode).json(error)        	

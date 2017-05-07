@@ -1,22 +1,22 @@
 var express  = require('express')
-var validate  = require('../validations/recipe')
+var validate  = require('../validations/course')
 var jwt = require('../helpers/jwt')
 
 //Services
-var recipeServices = require('../services/recipe')
+var courseServices = require('../services/course')
 
 let app = express()
 
 module.exports = function() {
    
     /*
-        Create recipe
+        Create course
     */
-    app.post('/recipes', jwt.jwtVerify, validate.createNew, function(req,res,next) {	
+    app.post('/course', jwt.jwtVerify, validate.createNew, function(req,res) {	
 
-    	let newRecipeObj = req.body 
+    	let newcourseObj = req.body 
 
-        recipeServices.createNew(newRecipeObj).then(function(result){
+        courseServices.createNew(newcourseObj).then(function(result){
         	return res.status(result.statusCode).json(result)
         },function(error){           
             return res.status(error.statusCode).json(error)        	
@@ -24,13 +24,13 @@ module.exports = function() {
     }) 
 
     /*
-        Get recipe details by id
+        Get course details by id
     */
-    app.get('/recipes/:id', validate.getDetails, function(req,res,next) {   
+    app.get('/course/:id', validate.getDetails, function(req,res) {   
 
-        let recipeId = req.params.id
+        let courseId = req.params.id
 
-        recipeServices.getDetails(recipeId).then(function(result){
+        courseServices.getDetails(courseId).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -38,9 +38,9 @@ module.exports = function() {
     })
 
     /*
-        Get recipe list(optional skip,limit)
+        Get course list(optional skip,limit)
     */
-    app.get('/recipes', function(req,res,next) {   
+    app.get('/course', function(req,res) {   
 
         let skip  = 0 // default
         let limit = 999 // default
@@ -52,7 +52,7 @@ module.exports = function() {
             limit = parseInt(req.query.limit)
         }
 
-        recipeServices.getList(skip,limit).then(function(result){
+        courseServices.getList(skip,limit).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -60,14 +60,14 @@ module.exports = function() {
     })
 
     /*
-        Update recipe by id
+        Update course by id
     */
-    app.put('/recipes/:id', jwt.jwtVerify, validate.updateRecipe, function(req,res,next) {   
+    app.put('/course/:id', jwt.jwtVerify, validate.updateCourse, function(req,res) {   
 
-        let recipeId         = req.params.id
-        let updateRecipeObj  = req.body
+        let courseId         = req.params.id
+        let updatecourseObj  = req.body
 
-        recipeServices.updateRecipe(recipeId,updateRecipeObj).then(function(result){
+        courseServices.updateCourse(courseId,updatecourseObj).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -75,13 +75,13 @@ module.exports = function() {
     })
 
     /*
-        Delete recipe by id
+        Delete course by id
     */
-    app.delete('/recipes/:id', jwt.jwtVerify, validate.deleteRecipe, function(req,res,next) {   
+    app.delete('/course/:id', jwt.jwtVerify, validate.deleteCourse, function(req,res) {   
 
-        let recipeId = req.params.id
+        let courseId = req.params.id
 
-        recipeServices.deleteRecipe(recipeId).then(function(result){
+        courseServices.deleteCourse(courseId).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -89,14 +89,14 @@ module.exports = function() {
     })
 
     /*
-        Rate recipe by id
+        Rate course by id
     */
-    app.put('/recipes/:id/rate', validate.rateRecipe, function(req,res,next) {   
+    app.put('/course/:id/rate', validate.rateCourse, function(req,res) {   
 
-        let recipeId         = req.params.id
-        let rateRecipeObj    = req.body
+        let courseId         = req.params.id
+        let ratecourseObj    = req.body
 
-        recipeServices.rateRecipe(recipeId,rateRecipeObj.rate).then(function(result){
+        courseServices.rateCourse(courseId,ratecourseObj.rate).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -104,13 +104,13 @@ module.exports = function() {
     })
 
     /*
-        Search recipe
+        Search course
     */
-    app.post('/recipes/search', validate.searchRecipes, function(req,res,next) {   
+    app.post('/course/search', validate.searchCourse, function(req,res) {   
         
-        let searchRecipeObj = req.body
+        let searchcourseObj = req.body
 
-        recipeServices.searchRecipes(searchRecipeObj).then(function(result){
+        courseServices.searchCourse(searchcourseObj).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
