@@ -5,6 +5,8 @@ var env = require('./helpers/environment')
 var util = require('./helpers/util')
 
 var app = express()
+var server
+
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(express.static(__dirname))
@@ -52,8 +54,7 @@ if (process.env.NODE_ENV !== 'production') {
 //Default route
 app.get('*', function(req, res) {
   res.sendFile(__dirname + '/index.html');  
-});
-  
+})  
 
 module.exports = {
 
@@ -63,7 +64,7 @@ module.exports = {
     var deferred = q.defer()
 
     app.set('port', env.getPort())
-    var server = app.listen(app.get('port'), function() {
+    server = app.listen(app.get('port'), function() {
       var status = "Solo una semana is up and running on port:"+app.get('port')
       console.log(status)
       deferred.resolve(server)
@@ -73,7 +74,7 @@ module.exports = {
   },
 
   //Close express server
-  close: function(server){
+  close: function(){
 
     var deferred = q.defer()
 

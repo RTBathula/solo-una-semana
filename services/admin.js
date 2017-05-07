@@ -21,7 +21,7 @@ module.exports = {
         try{    
          
           email = email.trim()
-          db.findOneBy(global.mongoCon,"admin",{email: email}).then(function(doc){
+          db.findOneBy("admin",{email: email}).then(function(doc){
 
             if(doc){
 

@@ -21,7 +21,7 @@ module.exports = {
 
           //Find recipe uniqueId if already exists
           newRecipeObj.uniqueId = newRecipeObj.uniqueId.trim()
-          db.findOneBy(global.mongoCon,"recipe",{uniqueId: newRecipeObj.uniqueId}).then(function(doc){
+          db.findOneBy("recipe",{uniqueId: newRecipeObj.uniqueId}).then(function(doc){
 
             if(doc){
               response.status      = "error"
@@ -38,7 +38,7 @@ module.exports = {
                 rating     : []               
               }
               //insert new recipe
-              return db.insertOne(global.mongoCon,"recipe",recipe)
+              return db.insertOne("recipe",recipe)
             }
 
           }).then(function(newDoc){
@@ -79,7 +79,7 @@ module.exports = {
 
         try{  
 
-          db.findOneBy(global.mongoCon,"recipe",{_id: new mongodb.ObjectId(recipeId)}).then(function(doc){
+          db.findOneBy("recipe",{_id: new mongodb.ObjectId(recipeId)}).then(function(doc){
             if(!doc){
               response.status      = "error"
               response.statusCode  = 400
@@ -124,7 +124,7 @@ module.exports = {
 
         try{  
 
-          db.getListBy(global.mongoCon,"recipe",{},skip,limit).then(function(list){
+          db.getListBy("recipe",{},skip,limit).then(function(list){
 
             response.status      = "success"
             response.statusCode  = 200
@@ -179,7 +179,7 @@ module.exports = {
             newSet.vegetarian = updateRecipeObj.vegetarian
           }
 
-          db.findOneAndUpdateBy(global.mongoCon,"recipe",query,newSet,newPush).then(function(doc){            
+          db.findOneAndUpdateBy("recipe",query,newSet,newPush).then(function(doc){            
             response.status      = "success"
             response.statusCode  = 200
             response.message     = "Successfully updated the recipe"                                
@@ -216,7 +216,7 @@ module.exports = {
 
         try{  
 
-          db.devareOneBy(global.mongoCon,"recipe",{_id: new mongodb.ObjectId(recipeId)}).then(function(doc){            
+          db.devareOneBy("recipe",{_id: new mongodb.ObjectId(recipeId)}).then(function(doc){            
             response.status      = "success"
             response.statusCode  = 200
             response.message     = "Successfully devared the recipe"                                
@@ -256,7 +256,7 @@ module.exports = {
           var newSet  = null
           var newPush = {rating: rate}        
 
-          db.findOneAndUpdateBy(global.mongoCon,"recipe",query,newSet,newPush).then(function(doc){            
+          db.findOneAndUpdateBy("recipe",query,newSet,newPush).then(function(doc){            
             response.status      = "success"
             response.statusCode  = 200
             response.message     = "Successfully rated the recipe"                                
@@ -293,7 +293,7 @@ module.exports = {
 
         try{        
 
-          db.searchBy(global.mongoCon,"recipe",searchRecipeObj.search,searchRecipeObj.language,searchRecipeObj.caseSensitive,searchRecipeObj.diacriticSensitive)
+          db.searchBy("recipe",searchRecipeObj.search,searchRecipeObj.language,searchRecipeObj.caseSensitive,searchRecipeObj.diacriticSensitive)
           .then(function(docs){            
             response.status      = "success"
             response.statusCode  = 200

@@ -1,8 +1,8 @@
 var express  = require('express')
 var validate  = require('../validations/admin')
 
-//Controllers
-var adminController = require('../controllers/admin')
+//Services
+var adminServices = require('../services/admin')
 
 let app = express()
 
@@ -15,7 +15,7 @@ module.exports = function() {
 
     	let loginObj = req.body 
 
-        adminController.LoginAdmin(loginObj.email,loginObj.password).then(function(result){
+        adminServices.LoginAdmin(loginObj.email,loginObj.password).then(function(result){
         	return res.status(result.statusCode).json(result)
         },function(error){           
             return res.status(error.statusCode).json(error)        	

@@ -1,6 +1,7 @@
 var q = require('q')
 var mongodb = require('mongodb')
 var mongoClient = mongodb.MongoClient
+var mongoCon
 
 module.exports = {
 
@@ -15,9 +16,10 @@ module.exports = {
           
           mongoClient.connect(connectionURI,function(err, db) {
             if(err) {
-                deferred.reject(err)
-            } else {    
-                deferred.resolve(db.db(dbName))
+              deferred.reject(err)
+            } else {
+              mongoCon =  db.db(dbName)  
+              deferred.resolve(db.db(dbName))
             }
           })       
 
@@ -31,14 +33,14 @@ module.exports = {
   /*
       Close the  mongodb connection
   */
-   connectionClose: function(db){
+   connectionClose: function(){
      
       let deferred = q.defer()
 
       try{
           
         // Force close the connection
-        db.close(true, function(err, result) {
+        mongoCon.close(true, function(err, result) {
           if(err) {
               deferred.reject(err)
           } else {    
@@ -56,14 +58,14 @@ module.exports = {
   /*
       Drop database 
   */
-   dropDatabase: function(db){
+   dropDatabase: function(){
      
       let deferred = q.defer()
 
       try{
           
         // Force close the connection
-        db.dropDatabase(function(err, result) {
+        mongoCon.dropDatabase(function(err, result) {
           if(err) {
               deferred.reject(err)
           } else {    
@@ -82,7 +84,7 @@ module.exports = {
   /*
       Create indexes for fields
   */
-   createIndex: function(db,collectionName,fieldName,indexName){
+   createIndex: function(collectionName,fieldName,indexName){
      
       let deferred = q.defer()
 
@@ -91,7 +93,7 @@ module.exports = {
         let indexObj        = {}
         indexObj[fieldName] = indexName
 
-        let collection = db.collection(collectionName)       
+        let collection = mongoCon.collection(collectionName)       
         collection.createIndex(indexObj,function(err, res) {
           if(err) {                        
             deferred.reject(err)
@@ -110,13 +112,13 @@ module.exports = {
   /*
       Drop collection 
   */
-   dropCollection: function(db,collectionName){
+   dropCollection: function(collectionName){
      
       let deferred = q.defer()
 
       try{
           
-        let collection = db.collection(collectionName)  
+        let collection = mongoCon.collection(collectionName)  
         collection.drop(function(err, reply) {
           if(err) {
               deferred.reject(err)
@@ -135,13 +137,13 @@ module.exports = {
   /*
      Insert a new document 
   */
-   insertOne: function(db,collectionName, object){
+  insertOne: function(collectionName, object){
      
       let deferred = q.defer()  
 
       try{  
 
-        let collection = db.collection(collectionName)       
+        let collection = mongoCon.collection(collectionName)       
 
         object._id       = new mongodb.ObjectId() 
         object.createdAt = new Date().getTime()
@@ -165,13 +167,13 @@ module.exports = {
   /*
      Find the document by query
   */
-   findOneBy: function(db,collectionName,query){
+   findOneBy: function(collectionName,query){
      
       let deferred = q.defer()  
 
       try{  
 
-        let collection = db.collection(collectionName)       
+        let collection = mongoCon.collection(collectionName)       
 
         collection.find(query).limit(1).next(function(err, respDoc) {
           if(err) {                         
@@ -191,13 +193,13 @@ module.exports = {
   /*
      Get documents list by query,skip,limit
   */
-   getListBy: function(db,collectionName, query, skip, limit){
+   getListBy: function(collectionName, query, skip, limit){
      
       let deferred = q.defer()  
 
       try{  
 
-        var collection=db.collection(collectionName)       
+        var collection=mongoCon.collection(collectionName)       
 
         collection.find(query).skip(skip).limit(limit).toArray(function(err, docs) {
           if(err) {                       
@@ -217,7 +219,7 @@ module.exports = {
   /*
      Find and update or push the documents by query
   */
-   findOneAndUpdateBy: function(db,collectionName, query, newSetObj, newPushObj){
+   findOneAndUpdateBy: function(collectionName, query, newSetObj, newPushObj){
      
       let deferred = q.defer()  
 
@@ -235,7 +237,7 @@ module.exports = {
           updateSet["$push"] = newPushObj
         }
 
-        var collection=db.collection(collectionName)         
+        var collection=mongoCon.collection(collectionName)         
         collection.findOneAndUpdate(query,updateSet,{returnOriginal: false}, function(err, resp) {
           if(err) {                                 
               deferred.reject(err)
@@ -254,13 +256,13 @@ module.exports = {
   /*
      Delete a document by query
   */
-   deleteOneBy: function(db,collectionName, query){
+   deleteOneBy: function(collectionName, query){
      
       let deferred = q.defer()  
 
       try{  
 
-        var collection=db.collection(collectionName)       
+        var collection=mongoCon.collection(collectionName)       
 
         collection.deleteOne(query, function(err, resp) {
           if(err) {                         
@@ -280,13 +282,13 @@ module.exports = {
   /*
      Delete multiple documents by query
   */
-   deleteManyBy: function(db,collectionName, query){
+   deleteManyBy: function(collectionName, query){
      
       let deferred = q.defer()  
 
       try{  
 
-        var collection=db.collection(collectionName)       
+        var collection=mongoCon.collection(collectionName)       
 
         collection.deleteMany(query, function(err, resp) {
           if(err) {                         
@@ -307,7 +309,7 @@ module.exports = {
   /*
      Search documents
   */
-   searchBy: function(db,collectionName, search, language, caseSensitive, diacriticSensitive){
+   searchBy: function(collectionName, search, language, caseSensitive, diacriticSensitive){
      
       let deferred = q.defer()  
 
@@ -333,7 +335,7 @@ module.exports = {
           searcQuery["$text"]["$diacriticSensitive"] = diacriticSensitive;
         }
 
-        let collection = db.collection(collectionName)       
+        let collection = mongoCon.collection(collectionName)       
 
         collection.find(searcQuery).toArray(function(err, docs) {
           if(err) {                       

@@ -2,8 +2,8 @@ var express  = require('express')
 var validate  = require('../validations/recipe')
 var jwt = require('../helpers/jwt')
 
-//Controllers
-var recipeController = require('../controllers/recipe')
+//Services
+var recipeServices = require('../services/recipe')
 
 let app = express()
 
@@ -16,7 +16,7 @@ module.exports = function() {
 
     	let newRecipeObj = req.body 
 
-        recipeController.createNew(newRecipeObj).then(function(result){
+        recipeServices.createNew(newRecipeObj).then(function(result){
         	return res.status(result.statusCode).json(result)
         },function(error){           
             return res.status(error.statusCode).json(error)        	
@@ -30,7 +30,7 @@ module.exports = function() {
 
         let recipeId = req.params.id
 
-        recipeController.getDetails(recipeId).then(function(result){
+        recipeServices.getDetails(recipeId).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -52,7 +52,7 @@ module.exports = function() {
             limit = parseInt(req.query.limit)
         }
 
-        recipeController.getList(skip,limit).then(function(result){
+        recipeServices.getList(skip,limit).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -67,7 +67,7 @@ module.exports = function() {
         let recipeId         = req.params.id
         let updateRecipeObj  = req.body
 
-        recipeController.updateRecipe(recipeId,updateRecipeObj).then(function(result){
+        recipeServices.updateRecipe(recipeId,updateRecipeObj).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -81,7 +81,7 @@ module.exports = function() {
 
         let recipeId = req.params.id
 
-        recipeController.deleteRecipe(recipeId).then(function(result){
+        recipeServices.deleteRecipe(recipeId).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -96,7 +96,7 @@ module.exports = function() {
         let recipeId         = req.params.id
         let rateRecipeObj    = req.body
 
-        recipeController.rateRecipe(recipeId,rateRecipeObj.rate).then(function(result){
+        recipeServices.rateRecipe(recipeId,rateRecipeObj.rate).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)
@@ -110,7 +110,7 @@ module.exports = function() {
         
         let searchRecipeObj = req.body
 
-        recipeController.searchRecipes(searchRecipeObj).then(function(result){
+        recipeServices.searchRecipes(searchRecipeObj).then(function(result){
             return res.status(result.statusCode).json(result)
         },function(error){
             return res.status(error.statusCode).json(error)

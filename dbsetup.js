@@ -4,16 +4,7 @@ var util = require('./helpers/util')
 var env = require('./helpers/environment')
 var readline = require('./helpers/readline')
 
-var mongoCon
-
 module.exports = {
-
-  /*
-    Get DB Instance
-  */
-  getDBInstance: function(){
-
-  },
 
   /*
     Connect DB,Create Index for recipe,Insert default admin
@@ -27,13 +18,8 @@ module.exports = {
     var adminEmail  = null
 
     //Connect mongodb
-    mongo.connect(env.getConfigKeys().mongodbConnectUri,env.getConfigKeys().dbName).then(function(mongoCon){	
-
-      //Assign mongo connection to global
-    	mongoCon = mongoCon 
-
-      return _self.addDefaultAdmin()       
-
+    mongo.connect(env.getConfigKeys().mongodbConnectUri,env.getConfigKeys().dbName).then(function(){	
+      return _self.addDefaultAdmin()
     }).then(function(resp){    
       deferred.resolve("Success")
     },function(error){      
@@ -50,7 +36,7 @@ module.exports = {
     let promisesList = []
 
     //Find default admin exist    
-    promisesList.push(mongo.getListBy(mongoCon,"admin",{},0,999))  
+    promisesList.push(mongo.getListBy("admin",{},0,999))  
 
     q.all(promisesList).then(function(respList){
 
@@ -70,7 +56,7 @@ module.exports = {
           //insert new admin  
           let {encryptedPass,salt} = util.encryptPassword(adminPassword)
           let adminObj = {email: adminEmail,encryptedPassword: encryptedPass, salt : salt}                     
-          return mongo.insertOne(mongoCon,"admin",adminObj)
+          return mongo.insertOne("admin",adminObj)
         }).then(function(resp){
           subDeferred.resolve("Default admin is successfully added.")
         },function(error){
