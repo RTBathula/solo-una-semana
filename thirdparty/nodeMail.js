@@ -1,4 +1,5 @@
 'use strict';		
+var q = require('q')
 var env = require('../helpers/environment') 		
 var _ = require('underscore');		
 var nodemailer = require('nodemailer');		
@@ -17,8 +18,8 @@ module.exports = {
  		
   sendMail: function(sendObj) {		
 		
-     var _self = obj;		
-     var deferred = global.q.defer();	
+     var _self = this		
+     var deferred = q.defer()
      var response = {}	
 		
      try{		        
@@ -38,6 +39,7 @@ module.exports = {
           response.status      = "success"
           response.statusCode  = 400
           response.message     = "Unable to send email"
+          console.log(error)
           deferred.reject(response);		
          } else {		
             response.status      = "success"
