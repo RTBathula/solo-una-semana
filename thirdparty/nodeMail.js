@@ -1,56 +1,57 @@
 'use strict';		
+var env = require('../helpers/environment') 		
+var _ = require('underscore');		
+var nodemailer = require('nodemailer');		
+		
+// create reusable transporter object using the default SMTP transport		
+var transporter = nodemailer.createTransport({		
+   service: env.getConfigKeys().nodeMailer.service,		
+   auth: {		
+     user: env.getConfigKeys().nodeMailer.auth_user,		
+     pass: env.getConfigKeys().nodeMailer.auth_pass		
+   }		
+});		
+		
  		
- var _ = require('underscore');		
- var nodemailer = require('nodemailer');		
+module.exports = {		  		
  		
- // create reusable transporter object using the default SMTP transport		
- var transporter = nodemailer.createTransport({		
-     service: global.configKeys.nodeMailer.service,		
-     auth: {		
-       user: global.configKeys.nodeMailer.auth_user,		
-       pass: global.configKeys.nodeMailer.auth_pass		
+  sendMail: function(sendObj) {		
+		
+     var _self = obj;		
+     var deferred = global.q.defer();	
+     var response = {}	
+		
+     try{		        
+
+       // setup email data with unicode symbols		
+       var mailOptions = {		
+         from     : sendObj.from, // sender address		
+         to       : sendObj.to, // list of receivers		
+         subject  : sendObj.subject, // Subject line		
+         text     : sendObj.text, // plain text body		
+         html     : sendObj.html // html body		
+       };		
+		
+       // send mail with defined transport object		
+       transporter.sendMail(mailOptions, function(error, info){		
+         if (error) {	
+          response.status      = "success"
+          response.statusCode  = 400
+          response.message     = "Unable to send email"
+          deferred.reject(response);		
+         } else {		
+            response.status      = "success"
+            response.statusCode  = 200
+            response.message     = info.response     
+           console.log('Message %s sent: %s', info.messageId, info.response);		
+           deferred.resolve(response);		
+         }         		
+       });		
+		
+     }catch(e){                		
+       deferred.reject(e);             		
      }		
- });		
- 		
- 		
- module.exports = function (sendObj) {		
-     		
-   var obj = {   		
- 		
-     sendMail: function() {		
- 		
-       var _self = obj;		
-       var deferred = global.q.defer();		
- 		
-       try{		
- 		
-         // setup email data with unicode symbols		
-         var mailOptions = {		
-             from     : sendObj.from, // sender address		
-             to       : sendObj.to, // list of receivers		
-             subject  : sendObj.subject, // Subject line		
-             text     : sendObj.text, // plain text body		
-             html     : sendObj.html // html body		
-         };		
- 		
-         // send mail with defined transport object		
-         transporter.sendMail(mailOptions, (error, info) => {		
-           if (error) {		
-             deferred.reject(error);		
-           } else {		
-             console.log('Message %s sent: %s', info.messageId, info.response);		
-             deferred.resolve(info.response);		
-           }         		
-         });		
- 		
-       }catch(e){                		
-         deferred.reject(e);             		
-       }		
- 		
-       return deferred.promise;           		
-     }		
- 		
-   };		
- 		
-   return obj;		
- };
+		
+     return deferred.promise;           		
+  }			
+}

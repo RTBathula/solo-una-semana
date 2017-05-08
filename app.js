@@ -36,6 +36,7 @@ app.use(function(req, res, next) {
 //Routes
 app.use('/', require('./routes/course')()) 
 app.use('/', require('./routes/admin')())
+app.use('/', require('./routes/student')())
 
 if (process.env.NODE_ENV !== 'production') {
   var webpack = require('webpack')

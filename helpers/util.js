@@ -20,6 +20,11 @@ module.exports = {
 	  return /^ *$/.test(txt)
 	},
 
+	validarEmail: function(email){
+	  let expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	  return expr.test(email)
+	},
+
 	isJsonParsable: function(json){ 
 
 	  try{
