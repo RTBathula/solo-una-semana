@@ -1,5 +1,11 @@
 import React, { PropTypes, Component } from 'react'
 import { Modal,Button,OverlayTrigger } from 'react-bootstrap'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import {Link} from 'react-router'
+import * as helpers from "helpers/util"
+
+import * as subscribeActions from 'actions/subscribe'
 
 //Css
 import layoutStyle from 'components/layout.css'
@@ -8,23 +14,145 @@ import style from './joinstudent.css'
 
 class App extends Component { 
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      fullName     : {
+        value : "",
+        error : ""
+      },
+      email        : {
+        value : "",
+        error : ""
+      },
+      phone        : {
+        value : "",
+        error : ""
+      },
+      interestedIn : {
+        value : "",
+        error : ""
+      }
+    }
+  }
+
+  bindInputData=(event,columnName)=>{   
+    this.state[columnName].value = event.target.value
+    this.setState({
+      [columnName]: this.state[columnName]
+    })
+  };
+
+  subscribeMe=()=>{
+    let isValid = this._validate()
+    if(isValid){
+      let finalObject ={}
+      for (var prop in this.state) {
+        if (this.state.hasOwnProperty(prop)) {
+          finalObject[prop] = this.state[prop].value
+        }
+      }
+
+      this.props.subscribeActions.toggleIsSubscribing(true)
+      this.props.subscribeActions.subscribeAsync(finalObject)
+    }   
+  }
+
+  _validate=()=>{
+    for (var prop in this.state) {
+      if (this.state.hasOwnProperty(prop)) {
+        this.state[prop].error = null
+      }
+    }
+    this.setState({...this.state})
+
+    let isValid = true;
+
+    let txtMsg = helpers.validateTextField(this.state.fullName.value);
+    if(txtMsg.error){
+      this.state.fullName.error="Ingrese nombre de la empresa "+txtMsg.error;
+      this.setState({
+        fullName: this.state.fullName
+      });
+      isValid = false
+    }
+    if(!txtMsg.error && txtMsg.txt){
+      this.state.fullName.value = txtMsg.txt
+      this.setState({
+        fullName: this.state.fullName
+      })
+    }
+
+    let email = this.state.email.value
+    if(!email){
+      this.state.email.error="Debes ingresar el email del administrador";
+      this.setState({
+        email: this.state.email
+      });
+      isValid = false
+    }
+
+    if(email && !helpers.validarEmail(email)){
+      this.state.email.error="Debes ingresar el email del administrador";
+      this.setState({
+        email: this.state.email
+      });
+      isValid = false
+    }
+
+    let phone = this.state.phone.value
+    if(!phone){
+      this.state.phone.error ="Debes ingresar el teléfono del administrador";
+      this.setState({
+        phone: this.state.phone
+      });
+      isValid = false
+    }
+
+    if(phone && (creatorPhone.length <12 || creatorPhone.phone>12)){
+      this.state.phone.error ="Debes ingresar el teléfono del administrador";
+      this.setState({
+        phone: this.state.phone
+      });
+      isValid = false
+    }
+
+    txtMsg = helpers.validateTextField(this.state.interestedIn.value);
+    if(txtMsg.error){
+      this.state.interestedIn.error="Ingrese nombre de la empresa "+txtMsg.error;
+      this.setState({
+        interestedIn: this.state.interestedIn
+      });
+      isValid = false
+    }
+    if(!txtMsg.error && txtMsg.txt){
+      this.state.interestedIn.value = txtMsg.txt
+      this.setState({
+        interestedIn: this.state.interestedIn
+      })
+    }
+
+    return isValid
+  }
+
   render() {    
 
     return ( 
     	<div>
         <Modal onEntered={this.onEntered} backdrop={"static"} keyboard={false} show={this.props.showModal} onHide={this.props.hideModal}>
-          <div style={{"width":"100%","height":"25px","backgroundColor":"red"}} className={"flex-row-space-start "}>
-            <div className={style.errorBoxHeader+" flex-row-start-start"}>
-              <div className={"flex-row-center"}> 
-                <i className={"fa fa-exclamation-triangle"} style={{"color":"#353535","marginTop":"2px"}}></i>              
+          {this.props.subscribe.error &&
+            <div style={{"width":"100%","height":"25px","backgroundColor":"red"}} className={"flex-row-space-start "}>
+              <div className={style.errorBoxHeader+" flex-row-start-start"}>
+                <div className={"flex-row-center"}> 
+                  <i className={"fa fa-exclamation-triangle"} style={{"color":"#353535","marginTop":"2px"}}></i>              
+                </div>
+                <div className={"flex-row-center"}> 
+                  <span style={{"color":"red","marginLeft":"6px"}}>{this.props.subscribe.error}</span>              
+                </div>            
               </div>
-              <div className={"flex-row-center"}> 
-                <span style={{"color":"red","marginLeft":"6px"}}>fucked up</span>              
-              </div>            
             </div>
-          </div>
-
-          <Modal.Header closeButton style={{"width":"100%","borderTopRightRadius":"4px","borderTopLeftRadius":"4px","backgroundColor":"black","border":"1px solid #212020"}}>
+          }
+          <Modal.Header closeButton style={{"width":"100%","borderTopRightRadius":"4px","borderTopLeftRadius":"4px","backgroundColor":"#0947b9","border":"1px solid #212020"}}>
            
             <div style={{"width":"100%"}} className={"flex-row-space-start "}>
               <div className={" "}>
@@ -57,11 +185,14 @@ class App extends Component {
                 </div>
                 <div style={{"marginLeft":"3px"}}>
                   <div className={style.inputWrap}>
-                    <input type="text" value={""} onChange={(event) => this.bindInputData(event,"address")}  placeholder="Enter the company address" className={'default-inputfield '+style.inputNormal} />
+                    <input type="text" value={this.state.fullName.value} onChange={(event) => this.bindInputData(event,"fullName")}  placeholder="Enter your first name and last name" className={'default-inputfield '+style.inputNormal} />
                   </div>
-                  <div>
-                    <span style={{"color":"red","marginLeft":"1.5px"}}>{"this.state.address.error"}</span>
+
+                  {this.state.fullName.error &&
+                    <div>
+                    <span style={{"color":"red","marginLeft":"1.5px"}}>{this.state.fullName.error}</span>
                   </div>
+                  }                  
                 </div>
               </div> 
 
@@ -74,11 +205,13 @@ class App extends Component {
                 </div>
                 <div style={{"marginLeft":"3px"}}>
                   <div className={style.inputWrap}>
-                    <input type="text" value={""} onChange={(event) => this.bindInputData(event,"address")}  placeholder="Enter the company address" className={'default-inputfield '+style.inputNormal} />
+                    <input type="text" value={this.state.email.value} onChange={(event) => this.bindInputData(event,"email")}  placeholder="Enter your email" className={'default-inputfield '+style.inputNormal} />
                   </div>
-                  <div>
-                    <span style={{"color":"red","marginLeft":"1.5px"}}>{"this.state.address.error"}</span>
-                  </div>
+                  {this.state.email.error &&
+                    <div>
+                      <span style={{"color":"red","marginLeft":"1.5px"}}>{this.state.email.error}</span>
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -91,11 +224,13 @@ class App extends Component {
                 </div>
                 <div style={{"marginLeft":"3px"}}>
                   <div className={style.inputWrap}>
-                    <input type="text" value={""} onChange={(event) => this.bindInputData(event,"address")}  placeholder="Enter the company address" className={'default-inputfield '+style.inputNormal} />
+                    <input type="text" value={this.state.phone.value} onChange={(event) => this.bindInputData(event,"phone")}  placeholder="Enter your phone" className={'default-inputfield '+style.inputNormal} />
                   </div>
-                  <div>
-                    <span style={{"color":"red","marginLeft":"1.5px"}}>{"this.state.address.error"}</span>
-                  </div>
+                  {this.state.phone.error &&
+                    <div>
+                      <span style={{"color":"red","marginLeft":"1.5px"}}>{this.state.phone.error}</span>
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -103,27 +238,37 @@ class App extends Component {
               <div className={'flex-row-start-start '+style.inputSuite}>
                 <div className={'vertical-center '+style.inputLabel} >
                  <div>
-                  <span style={{"fontSize":"14px"}}>Interested in(subject)</span>
+                  <span style={{"fontSize":"14px"}}>Interested in</span>
+                  <span style={{"fontSize":"14px","color":"gray"}}>(subject)</span>
                  </div>
                 </div>
                 <div style={{"marginLeft":"3px"}}>
                   <div className={style.inputWrap}>
-                    <input type="text" value={""} onChange={(event) => this.bindInputData(event,"address")}  placeholder="Enter the company address" className={'default-inputfield '+style.inputNormal} />
+                    <input type="text" value={this.state.interestedIn.value} onChange={(event) => this.bindInputData(event,"interestedIn")}  placeholder="Enter subject you interested" className={'default-inputfield '+style.inputNormal} />
                   </div>
-                  <div>
-                    <span style={{"color":"red","marginLeft":"1.5px"}}>{"this.state.address.error"}</span>
-                  </div>
+                  {this.state.interestedIn.error &&
+                    <div>
+                      <span style={{"color":"red","marginLeft":"1.5px"}}>{this.state.interestedIn.error}</span>
+                    </div>
+                  }
                 </div>
               </div>            
 
             </div>
           </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.props.hideModal}>Cancel</Button>               
-              <button onClick={this.create} className={"default-inputfield " +style.createBtn}>
-                <i className="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;
-                Create
-              </button>                
+              <Button onClick={this.props.hideModal}>Cancel</Button>  
+              {!this.props.subscribe.isSubscribing &&             
+                <button onClick={this.subscribeMe} className={"default-inputfield " +style.createBtn}>                 
+                  Create
+                </button>   
+              }
+
+              {this.props.subscribe.isSubscribing &&             
+                <button className={"default-inputfield " +style.createBtn}>
+                  <i className="fa fa-circle-o-notch fa-spin fa-fw"></i>                  
+                </button>   
+              }             
             </Modal.Footer>
           </Modal>  
 	    </div>    	  	
@@ -131,5 +276,15 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  subscribe : state.subscribe
+})
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  subscribeActions : bindActionCreators(subscribeActions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

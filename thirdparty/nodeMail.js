@@ -8,8 +8,10 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({		
    service: env.getConfigKeys().nodeMailer.service,		
    auth: {		
-     user: env.getConfigKeys().nodeMailer.auth_user,		
-     pass: env.getConfigKeys().nodeMailer.auth_pass		
+    type         : 'OAuth2',
+    user         : 'battu.network@gmail.com',
+    clientId     : '',
+    clientSecret : '' 
    }		
 });		
 		

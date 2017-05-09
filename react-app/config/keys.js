@@ -1,7 +1,7 @@
-var baseURL = 'http://todovabackend.herokuapp.com'
+var baseURL = ''
 
 if (process.env.NODE_ENV !== 'production') {	
-	baseURL = 'http://localhost:3000'
+	baseURL = ''
 }
 
 export default baseURL

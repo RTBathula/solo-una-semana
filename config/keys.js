@@ -4,9 +4,9 @@ module.exports = {
 		"dbName"            : "hellofresh",
 		"jwtSecret"         : "hellofresh",
       "nodeMailer"        : {
-         "service" : "gmail",
+         "service" : "Gmail",
          "auth_user" : "battu.network@gmail.com",
-         "auth_pass" : "Harshadmehta-2"
+         "auth_pass" : ""
       }
    },
    "test": {
