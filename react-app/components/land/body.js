@@ -74,10 +74,13 @@ class App extends Component {
                 <TileBox tileStyle={normalTileStyle} />                                       
               </div>                                               
                                 
-            </div>        
-
+            </div>    
           </div>          
-        </div>          
+        </div>
+
+        {/**/}
+        <div className={style.bodystrip+' '}>        
+        </div>       
 	    </div>    	  	
     );
   }

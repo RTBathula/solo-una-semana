@@ -10,7 +10,8 @@ class App extends Component {
 	constructor(props) {
 	    super(props)   
 	    this.state = { 	 
-	    	openJoinStudentModal : false        
+	    	openJoinStudentModal : false,
+	    	userType             : ""        
 	    }
 	}	
 
@@ -27,10 +28,10 @@ class App extends Component {
 		    			</div>
 		    			<div className={" vertical-center"} style={{"height":"40px"}}>
 		    				<div className={" flex-row-start-start"}>
-			    				<button className={layoutStyle.headerBtn+" default-inputfield"}>
+			    				<button onClick={() => this.setState({openJoinStudentModal: true,userType:"teacher"})} className={layoutStyle.headerBtn+" default-inputfield"}>
 			    					Become an instructor
 			    				</button>
-			    				<button onClick={() => this.setState({openJoinStudentModal: true})} style={{"marginLeft":"10px"}} className={layoutStyle.headerBtn+" default-inputfield"}>
+			    				<button onClick={() => this.setState({openJoinStudentModal: true,userType:"student"})} style={{"marginLeft":"10px"}} className={layoutStyle.headerBtn+" default-inputfield"}>
 			    					Become a student
 			    				</button>
 			    				<div style={{"marginLeft":"15px","height":"30px"}} className={" vertical-center"} >
@@ -55,7 +56,7 @@ class App extends Component {
 	          </div>
 
 	      	  {/*Joinstudent*/}
-	          <Joinstudent showModal={this.state.openJoinStudentModal} hideModal={() => this.setState({openJoinStudentModal: false})} />
+	          <Joinstudent userType={this.state.userType} showModal={this.state.openJoinStudentModal} hideModal={() => this.setState({openJoinStudentModal: false})} />
 		    </div>	
 	    	  	
 	    );

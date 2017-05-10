@@ -5,10 +5,19 @@ import layoutStyle from 'components/layout.css'
 import style from './topicDetails.css'
 
 //Custom components
+import Joinstudent from 'components/joinstudent/body'
 import FilePreviewByType from 'components/helpers/filePreviewByType/filePreviewByType'
 import Course from './course'
 
 class App extends Component { 
+
+  constructor(props) {
+    super(props)   
+    this.state = {   
+      openJoinStudentModal : false,
+      userType             : ""        
+    }
+  }
 
   render() {    
 
@@ -55,7 +64,7 @@ class App extends Component {
                   {/*Buttons*/}
                   <div style={{"width":"100%","marginTop":"20px"}} className={' flex-row-start-start'}>              
                      <div style={{"height":"auto"}} >
-                      <button className={' default-inputfield'} style={{"backgroundColor": "green","fontSize": "16px","color":"white","height":"32px","width":"150px","borderRadius":"1px"}} >                    
+                      <button onClick={() => this.setState({openJoinStudentModal: true,userType:"student"})} className={' default-inputfield'} style={{"backgroundColor": "green","fontSize": "16px","color":"white","height":"32px","width":"150px","borderRadius":"1px"}} >                    
                         I will attend
                       </button>                       
                     </div>            
@@ -134,7 +143,10 @@ class App extends Component {
             </div>       
 
           </div>
-        </div>                    
+        </div> 
+
+        {/*Joinstudent*/}
+        <Joinstudent userType={this.state.userType} showModal={this.state.openJoinStudentModal} hideModal={() => this.setState({openJoinStudentModal: false})} />                   
 	    </div>    	  	
     );
   }

@@ -13,7 +13,7 @@ export const subscribeAsync = (obj) => (dispatch, getState) => {
 	subscribeApi.subscribeUser(obj,resp =>{
 	  	dispatch({ 
 			type    : types.SUBSCRIBE_SUCESS,
-			success : success
+			success : resp
 		})
 	},error =>{
 	  	dispatch({ 

@@ -12,7 +12,7 @@ export default function user(state = initialState, action) {
     case types.SUBSCRIBE_ISSUBSCRIBING:      
       return {       
       	...state,
-        isSubscribing : false,
+        isSubscribing : action.isSubscribing,
         error         : null
       }
 

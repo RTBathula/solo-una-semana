@@ -36,6 +36,12 @@ class App extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) { 
+    if(this.props.subscribe.isSubscribing && !nextProps.subscribe.isSubscribing){
+      this.props.hideModal()
+    }   
+  }
+
   bindInputData=(event,columnName)=>{   
     this.state[columnName].value = event.target.value
     this.setState({
@@ -52,11 +58,35 @@ class App extends Component {
           finalObject[prop] = this.state[prop].value
         }
       }
+      finalObject.userType=this.props.userType
 
       this.props.subscribeActions.toggleIsSubscribing(true)
       this.props.subscribeActions.subscribeAsync(finalObject)
     }   
   }
+
+  onEntered=()=>{  
+    let obj={
+      fullName     : {
+        value : "",
+        error : ""
+      },
+      email        : {
+        value : "",
+        error : ""
+      },
+      phone        : {
+        value : "",
+        error : ""
+      },
+      interestedIn : {
+        value : "",
+        error : ""
+      }
+    } 
+
+    this.setState({...obj}) 
+  } 
 
   _validate=()=>{
     for (var prop in this.state) {
@@ -109,7 +139,7 @@ class App extends Component {
       isValid = false
     }
 
-    if(phone && (creatorPhone.length <12 || creatorPhone.phone>12)){
+    if(phone && (phone.length <12 || phone.length>12)){
       this.state.phone.error ="Debes ingresar el teléfono del administrador";
       this.setState({
         phone: this.state.phone
