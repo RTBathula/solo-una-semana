@@ -5,6 +5,7 @@ import layoutStyle from 'components/layout.css'
 import style from './land.css'
 
 import TileBox from './tileBox'
+import FilePreviewByType from 'components/helpers/filePreviewByType/filePreviewByType'
 
 class App extends Component { 
 
@@ -76,11 +77,7 @@ class App extends Component {
                                 
             </div>    
           </div>          
-        </div>
-
-        {/**/}
-        <div className={style.bodystrip+' '}>        
-        </div>       
+        </div>        
 	    </div>    	  	
     );
   }
