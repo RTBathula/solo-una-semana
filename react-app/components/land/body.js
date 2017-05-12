@@ -9,7 +9,8 @@ import FilePreviewByType from 'components/helpers/filePreviewByType/filePreviewB
 
 class App extends Component { 
 
-  render() {    
+  render() {     
+
     let bigTileStyle={
       "titleHeight"       : "40px",
       "titlePadding"      : "7px",
@@ -47,14 +48,14 @@ class App extends Component {
             {/*Intro tiles*/}         
             <div style={{"width":"100%","marginTop":"3.5%",}} className={"flex-row-start-start"}>           
               <div style={{"width":"49%"}}>  
-                <TileBox tileStyle={bigTileStyle} /> 
+                <TileBox data={this.props.course.list[0]} tileStyle={bigTileStyle} /> 
               </div>
               <div className={"flex-row-start-start"} style={{"width":"49%","marginLeft":"2%"}}>  
                 <div style={{"width":"49%"}}>
-                  <TileBox tileStyle={smallTileStyle} />                                       
+                  <TileBox data={this.props.course.list[0]} tileStyle={smallTileStyle} />                                       
                 </div> 
                 <div style={{"width":"49%","marginLeft":"2%"}}>
-                  <TileBox tileStyle={smallTileStyle} />                                       
+                  <TileBox data={this.props.course.list[0]} tileStyle={smallTileStyle} />                                       
                 </div>                                    
               </div>                    
             </div> 
@@ -63,16 +64,16 @@ class App extends Component {
             <div style={{"width":"100%","marginTop":"4.5%",}} className={"flex-row-start-start"}>              
              
               <div className={style.allTopics}>
-                <TileBox tileStyle={normalTileStyle} />                                       
+                <TileBox data={this.props.course.list[0]} tileStyle={normalTileStyle} />                                       
               </div> 
               <div className={style.allTopics}>
-                <TileBox tileStyle={normalTileStyle} />                                       
+                <TileBox data={this.props.course.list[0]} tileStyle={normalTileStyle} />                                       
               </div> 
               <div className={style.allTopics}>
-                <TileBox tileStyle={normalTileStyle} />                                       
+                <TileBox data={this.props.course.list[0]} tileStyle={normalTileStyle} />                                       
               </div> 
               <div className={style.allTopics}>
-                <TileBox tileStyle={normalTileStyle} />                                       
+                <TileBox data={this.props.course.list[0]} tileStyle={normalTileStyle} />                                       
               </div>                                               
                                 
             </div>    

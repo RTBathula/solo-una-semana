@@ -3,45 +3,51 @@ var mongodb = require('mongodb')
 
 module.exports = {
 
+    //logoUrl
+    //contentUrl
+    //title
+    //subTitle
+    //description
+    //
     createNew: function( req, res, next){ 	
-    	var newRecipeObj = req.body || null
+    	var newcourseObj = req.body || null
         var response = {
         	status     : "error",
             statusCode : 400
         }
 
         //Validate
-        if(!newRecipeObj || Object.prototype.toString.call(newRecipeObj)=="[object Null]"){
-        	response.message = "Invalid recipe object"
+        if(!newcourseObj || Object.prototype.toString.call(newcourseObj)=="[object Null]"){
+        	response.message = "Invalid course object"
             return res.status(400).json(response)
         }
 
-        if(newRecipeObj && (!newRecipeObj.uniqueId || newRecipeObj.uniqueId=="" || (newRecipeObj.uniqueId && util.hasWhiteSpace(newRecipeObj.uniqueId)))){  
+        if(newcourseObj && (!newcourseObj.uniqueId || newcourseObj.uniqueId=="" || (newcourseObj.uniqueId && util.hasWhiteSpace(newcourseObj.uniqueId)))){  
             response.message = "Recipe unique id is required"
             return res.status(400).json(response)
         }
 
-        if(newRecipeObj.uniqueId && (newRecipeObj.uniqueId.length<2)){       
+        if(newcourseObj.uniqueId && (newcourseObj.uniqueId.length<2)){       
             response.message = "Recipe unique id should contain atleast of 2 characters"
             return res.status(400).json(response)
         }
 
-        if(newRecipeObj && (!newRecipeObj.name || newRecipeObj.name=="" || (newRecipeObj.name && util.hasWhiteSpace(newRecipeObj.name)))){
+        if(newcourseObj && (!newcourseObj.name || newcourseObj.name=="" || (newcourseObj.name && util.hasWhiteSpace(newcourseObj.name)))){
             response.message = "Recipe name is required"
             return res.status(400).json(response)
         }
 
-        if(newRecipeObj.name && (newRecipeObj.name.length<2)){
+        if(newcourseObj.name && (newcourseObj.name.length<2)){
             response.message = "Recipe name should contain atleast of 2 varters"
             return res.status(400).json(response)
         }
         
-        if(newRecipeObj && (!newRecipeObj.prepTime || newRecipeObj.prepTime=="" || (newRecipeObj.prepTime && util.hasWhiteSpace(newRecipeObj.prepTime)))){
+        if(newcourseObj && (!newcourseObj.prepTime || newcourseObj.prepTime=="" || (newcourseObj.prepTime && util.hasWhiteSpace(newcourseObj.prepTime)))){
             response.message = "Recipe preparation time is required"
             return res.status(400).json(response)
         }
 
-        var prepTime = parseInt(newRecipeObj.prepTime)
+        var prepTime = parseInt(newcourseObj.prepTime)
         if(isNaN(prepTime)){
             response.message = "Recipe preparation time should be integer"
             return res.status(400).json(response)
@@ -52,12 +58,12 @@ module.exports = {
             return res.status(400).json(response)
         }
        
-        if(newRecipeObj && (!newRecipeObj.difficulty || newRecipeObj.difficulty=="" || (newRecipeObj.difficulty && util.hasWhiteSpace(newRecipeObj.difficulty)))){
+        if(newcourseObj && (!newcourseObj.difficulty || newcourseObj.difficulty=="" || (newcourseObj.difficulty && util.hasWhiteSpace(newcourseObj.difficulty)))){
             response.message = "Recipe difficulty is required"
             return res.status(400).json(response)
         }
 
-        var difficulty = parseInt(newRecipeObj.difficulty)
+        var difficulty = parseInt(newcourseObj.difficulty)
         if(isNaN(difficulty)){
             response.message = "Recipe difficulty should be integer"
             return res.status(400).json(response)
@@ -68,7 +74,7 @@ module.exports = {
             return res.status(400).json(response)
         }    
 
-        if(typeof newRecipeObj.vegetarian != "boolean"){
+        if(typeof newcourseObj.vegetarian != "boolean"){
             response.message = "Recipe vegetarian param is required and should be boolean(true/false)"
             return res.status(400).json(response)
         }

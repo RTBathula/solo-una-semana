@@ -18,10 +18,12 @@ class App extends Component {
 	    		<a href="/topic" style={{"textDecoration": "none"}}>
 	    		<div className={style.titleWrap+" flex-row-start-start"} style={{"height":this.props.tileStyle.titleHeight,"padding":this.props.tileStyle.titlePadding}}>
 	    			<div className={style.iconWrap+" vertical-center"} style={{"width":this.props.tileStyle.titleIconWidth}}>
-	    				<img src="assets/img/msexcel.png" />
+	    				<img src={this.props.data.logoUrl} />
 	    			</div>
 	    			<div className={style.title+" vertical-center"}>
-	    				<span style={{"fontSize": this.props.tileStyle.titleFontSize}} >MS EXCEL</span>	    				
+	    				<span style={{"fontSize": this.props.tileStyle.titleFontSize}}>
+	    				{this.props.data.title}
+	    				</span>	    				
 	    			</div>		    			
 	    		</div>
 	    		</a>
@@ -33,28 +35,32 @@ class App extends Component {
 	    		<div className={" card-2"}>
 			    	{/*image*/}
 			    	<div className={style.tileImgWrap}  style={{"height":this.props.tileStyle.imgHeight}}>
-			    		<FilePreviewByType fallback={"/assets/img/defaultImg.jpg"} file={"assets/img/prof.png"}/>			    			    	  
+			    		<FilePreviewByType fallback={"/assets/img/defaultImg.jpg"} file={this.props.data.contentUrl}/>			    			    	  
 				    </div>
 
 					{/*desc*/}
 			    	<div className={style.descBx+" "}>
 				    	<div className={style.subtitle+" "}>
-				    		<span style={{"fontSize": this.props.tileStyle.subTitleFontSize}} >What makes Earth so special?</span>	
+				    		<span style={{"fontSize": this.props.tileStyle.subTitleFontSize}}>
+				    		{this.props.data.subTitle}
+				    		</span>	
 				    	</div>
 				    	<div className={style.metadetails+" flex-row-start-start"}>
 				    		<div className={style.details1+" vertical-center"}>
 				    			<span>-&nbsp;</span>
-				    			<span className={style.profname}>RT Bathula</span>
+				    			<span className={style.profname}>
+				    			{this.props.data.teacherName}
+				    			</span>
 				    		</div>
 				    		<div className={style.details2+" vertical-center"}>
-				    			<span>/ Software Developer,Filmmaker</span>
+				    			<span>/ {this.props.data.teacherProfession}</span>
 				    		</div>	
 				    	</div>
 
 				    	<div className={style.metadetails+" flex-row-start-start"}>
 				    		<div className={style.details1+" vertical-center"}>				    			
 				    			<span style={{"fontSize": "16px","color":"green","fontWeight":"600"}} >
-				    				$50,000 CLP
+				    				{this.props.data.cost} CLP
 				    			</span>
 				    		</div>				    			
 				    	</div>	    	  

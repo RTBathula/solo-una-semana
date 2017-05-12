@@ -17,7 +17,7 @@ class App extends Component {
     return ( 
     	<div>					
   			<Header user={this.props.user} actions={this.props.actions} />
-  			<Body user={this.props.user} actions={this.props.actions}/>
+  			<Body course={this.props.course} actions={this.props.actions}/>
   			<Footer/>				
   		</div>   	    
     );
@@ -25,7 +25,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  user : state.user
+  course : state.course
 })
 
 const mapDispatchToProps = dispatch => ({

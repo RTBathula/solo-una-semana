@@ -10,10 +10,10 @@ export const toggleIsSubscribing = (isSubscribing) => (dispatch, getState) => {
 }
 
 export const subscribeAsync = (obj) => (dispatch, getState) => {   
-	subscribeApi.subscribe(obj,resp =>{
+	subscribeApi.subscribeUser(obj,resp =>{
 	  	dispatch({ 
 			type    : types.SUBSCRIBE_SUCESS,
-			success : success
+			success : resp
 		})
 	},error =>{
 	  	dispatch({ 
