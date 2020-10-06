@@ -8,7 +8,7 @@ npm install
 ```
 
 # Environment variables
-Create .env file in the repo with variables shown in *.env.example*
+Create .env file in the repo with variables shown in **.env.example**
 
 ```
 PORT=8084
